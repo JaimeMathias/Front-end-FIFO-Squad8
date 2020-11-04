@@ -1,11 +1,10 @@
 import './App.css';
-import { SelectBox } from '../selectbox/SelectBox'
+import EntryPoint from '../entrypoint/EntryPoint'
 
 function App() {
   return (
     <div className="App">
-      <SelectBox
-      key={1}
+      <EntryPoint
       />
     </div>
   );
