@@ -6,7 +6,7 @@ function SelectBox(props) {
         value: "PS4"
     })*/
 
-    const [plataformsOptions, setPlataformOptions] = useState([
+    const [plataformsOptions] = useState([  // Não tem o set pq n to usando ainda mesmo
         { id: 0, value: "PS4" },
         { id: 1, value: "Sinuca/PingPong" },
         { id: 2, value: "Monopoly" },
@@ -34,12 +34,5 @@ function SelectBox(props) {
         </div>
     )
 }
-
-/*
-<option value={plataformsOptions[0].value}>{plataformsOptions[0].value}</option>
-                <option value={plataformsOptions[1].value}>{plataformsOptions[1].value}</option>
-                <option value={plataformsOptions[2].value}>{plataformsOptions[0].value}</option>
-                <option value={plataformsOptions[3].value}>{plataformsOptions[0].value}</option>
-                */
 
 export { SelectBox }
