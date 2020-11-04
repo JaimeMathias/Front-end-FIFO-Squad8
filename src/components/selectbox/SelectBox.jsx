@@ -6,18 +6,29 @@ function SelectBox(props) {
         value: "PS4"
     })*/
 
-    const [plataformsOptions, setplataformOptions] = useState([
+    const [plataformsOptions, setPlataformOptions] = useState([
         { id: 0, value: "PS4" },
         { id: 1, value: "Sinuca/PingPong" },
         { id: 2, value: "Monopoly" },
         { id: 3, value: "War" }
     ])
 
+    const [value, setValue] = useState('PS4')
+
+    function handleSelectBoxChange(e) {
+        setValue(e.target.value)
+    }
+
+    useEffect(() => {
+        console.log(value); // Only shows the real setted value after updating the component, because the setValue is async
+        // Dont forget that this shows when the component is first rendered too
+    }) 
+
     return (
         <div>
-            <select name="Plataformas">
+            <select name="Plataformas" onChange={handleSelectBoxChange}>
                 {plataformsOptions.map(plataform => 
-                    <option value={plataform.value}>{plataform.value}</option>
+                    <option key={plataform.id} value={plataform.value}>{plataform.value}</option>
                 )}
             </select>
         </div>

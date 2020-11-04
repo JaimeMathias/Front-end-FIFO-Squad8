@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <SelectBox
-
+      key={1}
       />
     </div>
   );
