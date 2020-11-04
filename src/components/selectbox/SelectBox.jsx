@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 function SelectBox(props) {
     /*const [initialValue, setinitialValue] = useState({
@@ -6,7 +6,7 @@ function SelectBox(props) {
         value: "PS4"
     })*/
 
-    const { value, plataformsOptions, onSelectBoxChange } = props
+    const { value, plataformsOptions, onSelectBoxChange, name } = props
 
     useEffect(() => {
         console.log(value); // Only shows the real setted value after updating the component, because the setValue is async
@@ -15,7 +15,7 @@ function SelectBox(props) {
 
     return (
         <div>
-            <select name="Plataformas" onChange={onSelectBoxChange}>
+            <select name={name} onChange={onSelectBoxChange}>
                 {plataformsOptions.map(plataform => 
                     <option key={plataform.id} value={plataform.value}>{plataform.value}</option>
                 )}

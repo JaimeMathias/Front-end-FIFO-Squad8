@@ -18,11 +18,20 @@ function EntryPoint() {
 
     return (
         <div>
-            <SelectBox
-                value={value}
-                plataformsOptions={plataformsOptions}
-                onSelectBoxChange={handleSelectBoxChange}
-            />
+            <form action="">
+                <label name='Nome'>Nome</label>
+                <br/>
+                <input type="text" name="Oi" id=""/>
+                <br/>
+                <label name='Plataforma'>Plataforma</label>
+                <SelectBox
+                    name={'Plataforma'}
+                    value={value}
+                    plataformsOptions={plataformsOptions}
+                    onSelectBoxChange={handleSelectBoxChange}
+                />
+                <input type="submit" value="Submit"/>
+            </form>
         </div>
     )
 }
