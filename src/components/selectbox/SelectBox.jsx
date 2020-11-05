@@ -24,4 +24,4 @@ function SelectBox(props) {
     )
 }
 
-export { SelectBox }
+export default SelectBox

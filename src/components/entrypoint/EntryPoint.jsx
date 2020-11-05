@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { SelectBox } from "../selectbox/SelectBox";
+import SelectBox from "../selectbox/SelectBox";
 import { enterPlatformQueue, getPlatforms } from "./EntryPoint"
 
 function EntryPoint() {
@@ -17,7 +17,8 @@ function EntryPoint() {
     }
 
     useEffect(() => {
-        getPlatforms((platforms) => {
+        getPlatforms('https://www.fakeapi.online/api/apis/jaimemathias/api/platform', 
+        (platforms) => {
             console.log(platforms)
             setPlatformsOptions(platforms)
         })
@@ -28,10 +29,13 @@ function EntryPoint() {
         console.log(nameInput.current.value);
         console.log(selectedPlatform);
 
-        enterPlatformQueue({
+        enterPlatformQueue(
+        'https://www.fakeapi.online/api/apis/jaimemathias/api/fila/checkin', 
+        {
             name: nameInput.current.value,
             platform: selectedPlatform
-        }, (id) => {  // Callback Function
+        }, 
+        (id) => {  // Callback Function
             console.log(id);
             // probably stores it to some local variable, discuss about it with a dev
             //localStorage.setItem("user_id", 'id')
