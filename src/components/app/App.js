@@ -1,5 +1,5 @@
 import './App.css';
-import EntryPoint from '../entrypoint/EntryPoint'
+import EntryPoint from '../entrypoint/EntryPoint.jsx'
 
 function App() {
   return (

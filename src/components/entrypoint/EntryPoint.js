@@ -16,4 +16,17 @@ function getPlatforms(callback) {
     request.send()
 }
 
-export { getPlatforms }
+function enterPlatformQueue(user, callback) {
+    const request = new XMLHttpRequest()
+
+    request.open('post', 'https://www.fakeapi.online/api/apis/jaimemathias/api/fila/checkin')
+
+    request.onload = () => {
+        callback(JSON.parse(request.responseText))
+    }
+
+    request.send(JSON.stringify(user))
+
+}
+
+export { getPlatforms, enterPlatformQueue }
