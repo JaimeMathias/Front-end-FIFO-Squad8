@@ -6,7 +6,7 @@ function SelectBox(props) {
         value: "PS4"
     })*/
 
-    const { value, plataformsOptions, onSelectBoxChange, name } = props
+    const { value, platformsOptions, onSelectBoxChange, name } = props
 
     useEffect(() => {
         console.log(value); // Only shows the real setted value after updating the component, because the setValue is async
@@ -16,8 +16,8 @@ function SelectBox(props) {
     return (
         <div>
             <select name={name} onChange={onSelectBoxChange}>
-                {plataformsOptions.map(plataform => 
-                    <option key={plataform.id} value={plataform.value}>{plataform.value}</option>
+                {platformsOptions.map(platform => 
+                    <option key={platform.id} value={platform.value}>{platform.value}</option>
                 )}
             </select>
         </div>
