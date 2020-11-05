@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { SelectBox } from "../selectbox/SelectBox";
+import { getPlatforms } from "./EntryPoint"
 
 function EntryPoint() {
     
-    const [platformsOptions] = useState([  // Não tem o set pq n to usando ainda mesmo
-        { id: 0, value: "PS4" },
-        { id: 1, value: "Sinuca/PingPong" },
-        { id: 2, value: "Monopoly" },
-        { id: 3, value: "War" }
+    const [platformsOptions, setPlatformsOptions] = useState([  // Não tem o set pq n to usando ainda mesmo
+        { id: 0, value: "Select platform" }
     ])
 
     const [value, setValue] = useState('PS4')
@@ -15,6 +13,14 @@ function EntryPoint() {
     function handleSelectBoxChange(e) {
         setValue(e.target.value)
     }
+
+    useEffect(() => {
+        getPlatforms((platforms) => {
+            console.log(platforms)
+            setPlatformsOptions(platforms)
+        })
+    }, []) // Essa forma faz com que ele só rode o algoritmo quando o componente é montado
+           // Mas vai ter que ver outra forma pelo oq eu entendi, seria melhor pelo menos
 
     return (
         <div>
