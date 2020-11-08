@@ -6,11 +6,11 @@ function SelectBox(props) {
         value: "PS4"
     })*/
 
-    const { name, platformsOptions, onSelectBoxChange } = props
+    const { name, platformsOptions, onChange } = props
 
     return (
         <div>
-            <select name={name} onChange={onSelectBoxChange}>
+            <select name={name} onChange={onChange}>
                 {platformsOptions.map(platform => 
                     <option key={platform.id} value={platform.value}>{platform.value}</option>
                 )}

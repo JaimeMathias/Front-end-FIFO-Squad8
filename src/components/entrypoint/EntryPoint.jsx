@@ -5,10 +5,13 @@ import { enterPlatformQueue, getPlatforms } from "./EntryPoint"
 function EntryPoint() {
     
     const [platformsOptions, setPlatformsOptions] = useState([
-        { id: 0, value: "Select platform" }
+        { id: 'unique', value: "Select platform" }  
+        // Using a 'unique' id because if i use '0', it could cause conflicts. e.g.: 
+        // React sees that the key (id) is the same on both the VDOM and the DOM, so interprets that it didnt changed.
+        // In this specific case, i'm only using it for safety purposes
     ])
 
-    const [selectedPlatform, setSelectedPlatform] = useState(platformsOptions[0].value)
+    const [selectedPlatform, setSelectedPlatform] = useState('')
 
     const userNameInput = useRef()
 
@@ -21,31 +24,44 @@ function EntryPoint() {
         console.log(userNameInput.current.value);
         console.log(selectedPlatform);
 
+        // Http Request
         enterPlatformQueue(
-        'https://www.fakeapi.online/api/apis/jaimemathias/api/fila/checkin', 
-        {
-            userName: userNameInput.current.value,
-            platform: selectedPlatform
-        }, 
-        (userId) => {  // Callback Function
-            console.log(userId);
-            // probably stores it to some local variable, discuss about it with a dev
-            //localStorage.setItem("user_id", 'id')
-        })
+            'https://www.fakeapi.online/api/apis/jaimemathias/api/fila/checkin', 
+
+            // User info
+            {   
+                userName: userNameInput.current.value,
+                platform: selectedPlatform
+            }, 
+
+            // Callback Function
+            (userId) => {  
+                console.log(userId);
+                // probably stores it to some local variable, discuss about it with a dev
+                //localStorage.setItem("user_id", 'id')
+            }
+        )
     }
 
     /* Lifecycle Hooks */
     useEffect(() => {
-        getPlatforms('https://www.fakeapi.online/api/apis/jaimemathias/api/platform', 
-        (platforms) => {
-            setPlatformsOptions(platforms)
-            setSelectedPlatform(platforms[0].value)
-        })
+
+        // Http Request
+        getPlatforms('https://www.fakeapi.online/api/apis/jaimemathias/api/platform',
+
+            // Callback Function
+            (platforms) => {
+                setPlatformsOptions(platforms)
+                setSelectedPlatform(platforms[0].value)
+            }
+        )
     }, []) // Only runs when the component is mounted
 
     useEffect(() => {
-        console.log('Rendered: ', selectedPlatform);
-    }, [selectedPlatform])
+        if (selectedPlatform) {     // Only works when the value changes from the initial value ('')
+            console.log('Rendered: ', selectedPlatform);
+        }
+    }, [selectedPlatform, platformsOptions])
 
     return (
         <div>
@@ -58,7 +74,7 @@ function EntryPoint() {
                 name={'platformSelectBox'}
                 value={selectedPlatform}
                 platformsOptions={platformsOptions}
-                onSelectBoxChange={handleSelectBoxChange}
+                onChange={handleSelectBoxChange}
             />
             <p>Fila {'x'} pessoas</p>
             <input type="submit" value="Entrar na fila" onClick={handlePlatformQueue}/>
