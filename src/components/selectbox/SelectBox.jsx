@@ -1,10 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function SelectBox(props) {
-    /*const [initialValue, setinitialValue] = useState({
-        id: 0,
-        value: "PS4"
-    })*/
 
     const { name, platformsOptions, onChange } = props
 
@@ -17,6 +14,18 @@ function SelectBox(props) {
             </select>
         </div>
     )
+}
+
+SelectBox.propTypes = {
+    name: PropTypes.string,
+    onChange: PropTypes.func,
+    platformsOptions: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.any.isRequired,
+            value: PropTypes.any.isRequired
+        }).isRequired
+    ).isRequired
+    // All the isRequired is actually required for the full validation to work
 }
 
 export default SelectBox
