@@ -20,7 +20,9 @@ function EntryPoint() {
         setSelectedPlatform(e.target.value)
     }
 
-    function handlePlatformQueue() {
+    function handlePlatformQueue(e) {
+        e.preventDefault() // Prevents the page from refreshing automatically 
+        
         console.log(userNameInput.current.value);
         console.log(selectedPlatform);
 
