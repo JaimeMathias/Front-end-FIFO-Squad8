@@ -1,34 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 function SelectBox(props) {
-    /*const [initialValue, setinitialValue] = useState({
-        id: 0,
-        value: "PS4"
-    })*/
 
-    const [plataformsOptions, setplataformOptions] = useState([
-        { id: 0, value: "PS4" },
-        { id: 1, value: "Sinuca/PingPong" },
-        { id: 2, value: "Monopoly" },
-        { id: 3, value: "War" }
-    ])
+    const { name, platformsOptions, onChange } = props
 
     return (
         <div>
-            <select name="Plataformas">
-                {plataformsOptions.map(plataform => 
-                    <option value={plataform.value}>{plataform.value}</option>
+            <select name={name} onChange={onChange}>
+                {platformsOptions.map(platform => 
+                    <option key={platform.id} value={platform.value}>{platform.value}</option>
                 )}
             </select>
         </div>
     )
 }
 
-/*
-<option value={plataformsOptions[0].value}>{plataformsOptions[0].value}</option>
-                <option value={plataformsOptions[1].value}>{plataformsOptions[1].value}</option>
-                <option value={plataformsOptions[2].value}>{plataformsOptions[0].value}</option>
-                <option value={plataformsOptions[3].value}>{plataformsOptions[0].value}</option>
-                */
+SelectBox.propTypes = {
+    name: PropTypes.string,
+    onChange: PropTypes.func,
+    platformsOptions: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.any.isRequired,
+            value: PropTypes.any.isRequired
+        }).isRequired
+    ).isRequired
+    // All the isRequired is actually required for the full validation to work
+}
 
-export { SelectBox }
+export default SelectBox
