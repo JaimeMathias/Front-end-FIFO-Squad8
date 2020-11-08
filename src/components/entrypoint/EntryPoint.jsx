@@ -23,8 +23,8 @@ function EntryPoint() {
     function handlePlatformQueue(e) {
         e.preventDefault() // Prevents the page from refreshing automatically 
         
-        console.log(userNameInput.current.value);
-        console.log(selectedPlatform);
+        //console.log(userNameInput.current.value);
+        //console.log(selectedPlatform);
 
         // Http Request
         enterPlatformQueue(
@@ -38,9 +38,8 @@ function EntryPoint() {
 
             // Callback Function
             (userId) => {  
-                console.log(userId);
+                //console.log(userId);
                 // probably stores it to some local variable, discuss about it with a dev
-                //localStorage.setItem("user_id", 'id')
             }
         )
     }
@@ -61,9 +60,9 @@ function EntryPoint() {
 
     useEffect(() => {
         if (selectedPlatform) {     // Only works when the value changes from the initial value ('')
-            console.log('Rendered: ', selectedPlatform);
+            //console.log('Rendered: ', selectedPlatform);
         }
-    }, [selectedPlatform, platformsOptions])
+    }, [selectedPlatform])
 
     return (
         <div>
