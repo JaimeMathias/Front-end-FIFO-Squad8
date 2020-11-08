@@ -4,59 +4,64 @@ import { enterPlatformQueue, getPlatforms } from "./EntryPoint"
 
 function EntryPoint() {
     
-    const [platformsOptions, setPlatformsOptions] = useState([  // Não tem o set pq n to usando ainda mesmo
+    const [platformsOptions, setPlatformsOptions] = useState([
         { id: 0, value: "Select platform" }
     ])
 
-    const [selectedPlatform, setSelectedPlatform] = useState('PS4')
+    const [selectedPlatform, setSelectedPlatform] = useState(platformsOptions[0].value)
 
-    const nameInput = useRef()
+    const userNameInput = useRef()
 
+    /* Functions */
     function handleSelectBoxChange(e) {
         setSelectedPlatform(e.target.value)
     }
 
-    useEffect(() => {
-        getPlatforms('https://www.fakeapi.online/api/apis/jaimemathias/api/platform', 
-        (platforms) => {
-            console.log(platforms)
-            setPlatformsOptions(platforms)
-        })
-    }, []) // Essa forma faz com que ele só rode o algoritmo quando o componente é montado
-           // Mas vai ter que ver outra forma pelo oq eu entendi, seria melhor pelo menos
-
     function handlePlatformQueue() {
-        console.log(nameInput.current.value);
+        console.log(userNameInput.current.value);
         console.log(selectedPlatform);
 
         enterPlatformQueue(
         'https://www.fakeapi.online/api/apis/jaimemathias/api/fila/checkin', 
         {
-            name: nameInput.current.value,
+            userName: userNameInput.current.value,
             platform: selectedPlatform
         }, 
-        (id) => {  // Callback Function
-            console.log(id);
+        (userId) => {  // Callback Function
+            console.log(userId);
             // probably stores it to some local variable, discuss about it with a dev
             //localStorage.setItem("user_id", 'id')
         })
     }
 
+    /* Lifecycle Hooks */
+    useEffect(() => {
+        getPlatforms('https://www.fakeapi.online/api/apis/jaimemathias/api/platform', 
+        (platforms) => {
+            setPlatformsOptions(platforms)
+            setSelectedPlatform(platforms[0].value)
+        })
+    }, []) // Only runs when the component is mounted
+
+    useEffect(() => {
+        console.log('Rendered: ', selectedPlatform);
+    }, [selectedPlatform])
+
     return (
         <div>
-            <label name='Nome'>Nome</label>
+            <label name='userNameInput'>Nome</label>
             <br/>
-            <input autoFocus type="text" name="Oi" id="inputname" ref={nameInput}/>
+            <input autoFocus type="text" name="userNameInput" id="userNameInput" ref={userNameInput}/>
             <br/>
-            <label name='Plataforma'>Plataforma</label>
+            <label name='platformSelectBox'>Plataforma</label>
             <SelectBox
-                name={'Plataforma'}
+                name={'platformSelectBox'}
                 value={selectedPlatform}
                 platformsOptions={platformsOptions}
                 onSelectBoxChange={handleSelectBoxChange}
             />
             <p>Fila {'x'} pessoas</p>
-            <input type="submit" value="Submit" onClick={handlePlatformQueue}/>
+            <input type="submit" value="Entrar na fila" onClick={handlePlatformQueue}/>
         </div>
     )
 }

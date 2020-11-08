@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 function SelectBox(props) {
     /*const [initialValue, setinitialValue] = useState({
@@ -6,12 +6,7 @@ function SelectBox(props) {
         value: "PS4"
     })*/
 
-    const { value, platformsOptions, onSelectBoxChange, name } = props
-
-    useEffect(() => {
-        console.log(value); // Only shows the real setted value after updating the component, because the setValue is async
-        // Dont forget that this shows when the component is first rendered too
-    }) 
+    const { name, platformsOptions, onSelectBoxChange } = props
 
     return (
         <div>
