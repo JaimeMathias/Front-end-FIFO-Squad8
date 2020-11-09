@@ -26,7 +26,7 @@ function EntryPoint(props) {
         setSelectedPlatform(platformsOptions.find(platform => platform.value === e.target.value))
     }
 
-    function handlePlatformQueue(e) {
+    function handleUserCheckin(e) {
         e.preventDefault() // Prevents the page from refreshing automatically 
         
         //console.log(userNameInput.current.value);
@@ -102,7 +102,7 @@ function EntryPoint(props) {
 
     return (
         <div>
-            <form onSubmit={handlePlatformQueue}>
+            <form onSubmit={handleUserCheckin}>
                 <label name='userNameInput'>Nome</label>
                 <br/>
                 <input autoFocus type="text" name="userNameInput" id="userNameInput" ref={userNameInput} required/>

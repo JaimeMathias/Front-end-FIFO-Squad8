@@ -21,7 +21,6 @@ function App() {
       <UserOnQueue
         userId={userId}
         userInitialQueuePosition={userInitialQueuePosition}
-        onUserIdChange={handleUserIdChange}
       />
     </div>
   );

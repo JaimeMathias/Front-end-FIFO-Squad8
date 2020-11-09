@@ -15,7 +15,13 @@ function UserOnQueue(props) {
     const [buttonText, setButtonText] = useState('Sair')
     
     /* Functions */
-    function handleUserLeave() {
+    function handleUserCheckout() {
+        /* 
+            If the the userQueuePosition is greater than 1
+            so it means that he's still on the queue.
+            Therefore, if his position is 1, then
+            then it means that the user is playing.
+        */
         if (userQueuePosition > 1) {
             leavePlatformQueue(
 
@@ -29,15 +35,34 @@ function UserOnQueue(props) {
                 () => {
                     console.log("Sucesso ao sair da fila!");
                 } 
-
             )
         } 
+        else if (userQueuePosition === 1) {
+            leavePlatformGame(
+
+                // Url
+                "https://www.fakeapi.online/api/apis/jaimemathias/api/usuario/game-checkout",
+
+                // UserId Info
+                userId,
+
+                // Callback Function
+                () => {
+                    console.log("Sucesso ao sair do jogo!");
+                } 
+            )
+        }
     }
     
     /* Lifecycle Hooks */
     useEffect(() => {
+        /*
+            When the user check-ins, then the if condition is true,
+            so it sets a interval of 1 minute to check if
+            the queuePosition of the user has changed
+        */
         if (userId) {
-            console.log('userId changed: ', userId);
+            //console.log('userId changed: ', userId);
             const auxfuncGetUserQueuePosition = () => {
                 getUserQueuePosition(
 
@@ -49,7 +74,7 @@ function UserOnQueue(props) {
 
                     // Callback Function
                     (userPosition) => {
-                        console.log(userPosition);
+                        //console.log(userPosition);
                         setUserQueuePosition(userPosition.position)
                     } 
                 )
@@ -73,7 +98,7 @@ function UserOnQueue(props) {
         }
         else if (userQueuePosition === 1) {
             // Some warning to the user that is his turn
-            console.log("É sua vez!");
+            alert("É sua vez!");
             setButtonText("Sair do jogo")
         }
 
@@ -88,7 +113,7 @@ function UserOnQueue(props) {
             />
             <Button
                 buttonText={buttonText}
-                onButtonClick={handleUserLeave}
+                onButtonClick={handleUserCheckout}
                 classNames={'leave-button'}
             />
         </div>
