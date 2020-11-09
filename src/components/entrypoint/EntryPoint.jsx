@@ -17,7 +17,7 @@ function EntryPoint(props) {
 
     const [platformsQueue, setPlatformsQueue] = useState('')
 
-    const [selectedPlatformQueueCount, setSelectedPlatformQueueCount] = useState('')
+    const [selectedPlatformQueueCount, setSelectedPlatformQueueCount] = useState(0)
 
     const { onUserIdChange } = props
 

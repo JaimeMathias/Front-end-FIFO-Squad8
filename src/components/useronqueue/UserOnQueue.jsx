@@ -13,12 +13,17 @@ function UserOnQueue(props) {
 
     useEffect(() => {
         if (userId) {
-            console.log('oi');
             console.log('userId changed: ', userId);
             const auxfuncGetUserQueuePosition = () => {
                 getUserQueuePosition(
+
+                    // Url
                     "https://www.fakeapi.online/api/apis/jaimemathias/api/usuario",
+
+                    // UserId Info
                     userId,
+
+                    // Callback Function
                     (userPosition) => {
                         console.log(userPosition);
                         setUserQueuePosition(userPosition.position)
@@ -27,9 +32,15 @@ function UserOnQueue(props) {
             }
 
             auxfuncGetUserQueuePosition()
-        }
-    }, [userId])
 
+            var getPositionInterval = setInterval(auxfuncGetUserQueuePosition, 60000); // 60000 ms = 1 minute
+        }
+
+        return () => clearInterval(getPositionInterval)
+        // generally the getPositionInterval should be in the local scope
+        // but as it's right now, doesnt need because this useEffect only updates 1 time
+    }, [userId])
+    
     return (
         <div>
             <p className={classUserPositionNames}>Sua posição: </p>
