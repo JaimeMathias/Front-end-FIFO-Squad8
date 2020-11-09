@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import SelectBox from "../selectbox/SelectBox";
 import { enterPlatformQueue, getPlatforms, getPlatformsQueueCount } from "./EntryPoint"
 
-function EntryPoint() {
+function EntryPoint(props) {
     
     const [platformsOptions, setPlatformsOptions] = useState([
         { id: 'unique', value: "Select platform" }  
@@ -17,7 +17,9 @@ function EntryPoint() {
 
     const [platformsQueue, setPlatformsQueue] = useState('')
 
-    const [selectedPlatformQueueCount, setSelectedPlatformQueueCount] = useState('')
+    const [selectedPlatformQueueCount, setSelectedPlatformQueueCount] = useState(0)
+
+    const { onUserIdChange } = props
 
     /* Functions */
     function handleSelectBoxChange(e) {
@@ -41,9 +43,9 @@ function EntryPoint() {
             }, 
 
             // Callback Function
-            (userId) => {  
-                //console.log(userId);
-                // probably stores it to some local variable, discuss about it with a dev
+            (userInfo) => {  
+                //console.log(userInfo);
+                onUserIdChange(userInfo)
             }
         )
     }
@@ -52,7 +54,11 @@ function EntryPoint() {
     useEffect(() => {
         const auxfuncGetPlatformQueueCount = () => {
             getPlatformsQueueCount(
+
+                // Http Request
                 'https://www.fakeapi.online/api/apis/jaimemathias/api/plataforma/queue-count',
+
+                // Callback Function
                 (platformQueueCount) => { 
                     //console.log(platformQueueCount);
                     setPlatformsQueue(platformQueueCount);

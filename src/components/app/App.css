@@ -3,3 +3,8 @@
   grid-template-rows: 1;
   padding: 1em;
 }
+
+.userPosition {
+  float: left;
+  margin-right: 0.5em;
+}
