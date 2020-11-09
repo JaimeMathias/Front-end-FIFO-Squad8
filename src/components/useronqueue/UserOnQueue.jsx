@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import UserPosition from '../userposition/UserPosition'
-import { getUserQueuePosition, leavePlatformQueue, leavePlatformGame } from '../useronqueue/UserOnQueue'
 import Button from '../button/Button'
+import { getUserQueuePosition, leavePlatformQueue, leavePlatformGame } from '../useronqueue/UserOnQueue'
 
 function UserOnQueue(props) {
 
@@ -118,6 +119,11 @@ function UserOnQueue(props) {
             />
         </div>
     )
+}
+
+UserOnQueue.propTypes = {
+    userId: PropTypes.number,
+    userInitialQueuePosition: PropTypes.number
 }
 
 export default UserOnQueue

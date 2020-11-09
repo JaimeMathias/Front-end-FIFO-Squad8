@@ -4,7 +4,7 @@ import EntryPoint from '../entrypoint/EntryPoint.jsx'
 import UserOnQueue from '../useronqueue/UserOnQueue.jsx'
 
 function App() {
-  const [userId, setUserId] = useState('')
+  const [userId, setUserId] = useState(0)
 
   const [userInitialQueuePosition, setUserInitialQueuePosition] = useState(0)
 

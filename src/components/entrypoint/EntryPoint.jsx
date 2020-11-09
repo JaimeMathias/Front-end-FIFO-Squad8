@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import SelectBox from "../selectbox/SelectBox";
 import { enterPlatformQueue, getPlatforms, getPlatformsQueueCount } from "./EntryPoint"
 
@@ -118,6 +119,10 @@ function EntryPoint(props) {
             </form>
         </div>
     )
+}
+
+EntryPoint.propTypes = {
+    onUserIdChange: PropTypes.func
 }
 
 export default EntryPoint
