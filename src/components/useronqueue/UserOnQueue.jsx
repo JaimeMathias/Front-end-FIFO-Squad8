@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import UserPosition from '../userposition/UserPosition'
-import { getUserQueuePosition, leavePlatformQueue } from '../useronqueue/UserOnQueue'
+import { getUserQueuePosition, leavePlatformQueue, leavePlatformGame } from '../useronqueue/UserOnQueue'
 import Button from '../button/Button'
 
 function UserOnQueue(props) {
@@ -9,11 +9,32 @@ function UserOnQueue(props) {
     
     const [userQueuePosition, setUserQueuePosition] = useState(0)
 
-    const [classUserPositionNames] = useState('userPosition')
+    const [classUserPositionNames] = useState('user-position')
     // Temporary style for better visualization
 
     const [buttonText, setButtonText] = useState('Sair')
+    
+    /* Functions */
+    function handleUserLeave() {
+        if (userQueuePosition > 1) {
+            leavePlatformQueue(
 
+                // Url
+                "https://www.fakeapi.online/api/apis/jaimemathias/api/usuario/queue-checkout",
+
+                // UserId Info
+                userId,
+
+                // Callback Function
+                () => {
+                    console.log("Sucesso ao sair da fila!");
+                } 
+
+            )
+        } 
+    }
+    
+    /* Lifecycle Hooks */
     useEffect(() => {
         if (userId) {
             console.log('userId changed: ', userId);
@@ -37,9 +58,9 @@ function UserOnQueue(props) {
             var getPositionInterval = setInterval(auxfuncGetUserQueuePosition, 60000); // 60000 ms = 1 minute
         }
 
-        return () => clearInterval(getPositionInterval)
         // generally the getPositionInterval should be in the local scope
         // but as it's right now, doesnt need because this useEffect only updates 1 time
+        return () => clearInterval(getPositionInterval)
     }, [userId])
 
     useEffect(() => {
@@ -47,30 +68,16 @@ function UserOnQueue(props) {
     }, [userInitialQueuePosition])
 
     useEffect(() => {
-        if (userQueuePosition === 1) {
+        if (userQueuePosition > 1) {
+            setButtonText('Sair da fila')
+        }
+        else if (userQueuePosition === 1) {
             // Some warning to the user that is his turn
             console.log("É sua vez!");
+            setButtonText("Sair do jogo")
         }
+
     }, [userQueuePosition]);
-
-    function handleUserLeave() {
-        if (userQueuePosition > 1) {
-            leavePlatformQueue(
-
-                // Url
-                "https://www.fakeapi.online/api/apis/jaimemathias/api/usuario/queue-checkout",
-
-                // UserId Info
-                userId,
-
-                // Callback Function
-                () => {
-                    console.log("Sucesso ao sair da fila!");
-                } 
-
-            )
-        } 
-    }
     
     return (
         <div>
