@@ -1,0 +1,8 @@
+{
+  "short_name": "FIFO App",
+  "name": "FIFO Project App",
+  "icons": [
+  ],
+  "start_url": ".",
+  "display": "standalone"
+}
