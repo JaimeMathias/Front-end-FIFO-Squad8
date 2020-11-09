@@ -96,18 +96,20 @@ function EntryPoint() {
 
     return (
         <div>
-            <label name='userNameInput'>Nome</label>
-            <br/>
-            <input autoFocus type="text" name="userNameInput" id="userNameInput" ref={userNameInput}/>
-            <br/>
-            <label name='platformSelectBox'>Plataforma</label>
-            <SelectBox
-                name={'platformSelectBox'}
-                platformsOptions={platformsOptions}
-                onChange={handleSelectBoxChange}
-            />
-            <p>Fila {selectedPlatformQueueCount} pessoas</p>
-            <input type="submit" value="Entrar na fila" onClick={handlePlatformQueue}/>
+            <form onSubmit={handlePlatformQueue}>
+                <label name='userNameInput'>Nome</label>
+                <br/>
+                <input autoFocus type="text" name="userNameInput" id="userNameInput" ref={userNameInput} required/>
+                <br/>
+                <label name='platformSelectBox'>Plataforma</label>
+                <SelectBox
+                    name={'platformSelectBox'}
+                    platformsOptions={platformsOptions}
+                    onChange={handleSelectBoxChange}
+                />
+                <p>Fila {selectedPlatformQueueCount} pessoas</p>
+                <input type="submit" value="Entrar na fila"/>
+            </form>
         </div>
     )
 }
