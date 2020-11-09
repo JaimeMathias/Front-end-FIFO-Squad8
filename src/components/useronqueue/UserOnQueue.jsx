@@ -4,12 +4,12 @@ import { getUserQueuePosition } from '../useronqueue/UserOnQueue'
 
 function UserOnQueue(props) {
 
+    const { userId, userInitialQueuePosition } = props
+    
     const [userQueuePosition, setUserQueuePosition] = useState(0)
 
     const [classUserPositionNames] = useState('userPosition')
     // Temporary style for better visualization
-
-    const { userId } = props
 
     useEffect(() => {
         if (userId) {
@@ -31,8 +31,6 @@ function UserOnQueue(props) {
                 )
             }
 
-            auxfuncGetUserQueuePosition()
-
             var getPositionInterval = setInterval(auxfuncGetUserQueuePosition, 60000); // 60000 ms = 1 minute
         }
 
@@ -40,6 +38,10 @@ function UserOnQueue(props) {
         // generally the getPositionInterval should be in the local scope
         // but as it's right now, doesnt need because this useEffect only updates 1 time
     }, [userId])
+
+    useEffect(() => {
+        setUserQueuePosition(userInitialQueuePosition)
+    }, [userInitialQueuePosition])
     
     return (
         <div>

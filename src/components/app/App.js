@@ -6,18 +6,21 @@ import UserOnQueue from '../useronqueue/UserOnQueue.jsx'
 function App() {
   const [userId, setUserId] = useState('')
 
-  function handleUserIdChange(id) {
-    setUserId(id)
+  const [userInitialQueuePosition, setUserInitialQueuePosition] = useState(0)
+
+  function handleUserIdChange(userInfo) {
+    setUserId(userInfo.id)
+    setUserInitialQueuePosition(userInfo.position)
   }
 
   return (
     <div className="App">
       <EntryPoint
-        userId={userId}
         onUserIdChange={handleUserIdChange}
       />
       <UserOnQueue
         userId={userId}
+        userInitialQueuePosition={userInitialQueuePosition}
         onUserIdChange={handleUserIdChange}
       />
     </div>

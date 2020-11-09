@@ -43,10 +43,9 @@ function EntryPoint(props) {
             }, 
 
             // Callback Function
-            (userId) => {  
-                console.log(userId.id);
-                onUserIdChange(userId.id)
-                // userInfo
+            (userInfo) => {  
+                //console.log(userInfo);
+                onUserIdChange(userInfo)
             }
         )
     }

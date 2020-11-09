@@ -34,7 +34,7 @@ function enterPlatformQueue(url, user, callback) {
     request.open('post', url)
 
     request.onload = () => {
-        callback(JSON.parse(request.responseText))
+        callback(JSON.parse(request.responseText).userInfo)
     }
 
     request.send(JSON.stringify(user))
