@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import UserPosition from '../userposition/UserPosition'
-import { getUserQueuePosition } from '../useronqueue/UserOnQueue'
+import { getUserQueuePosition, leavePlatformQueue } from '../useronqueue/UserOnQueue'
+import Button from '../button/Button'
 
 function UserOnQueue(props) {
 
@@ -10,6 +11,8 @@ function UserOnQueue(props) {
 
     const [classUserPositionNames] = useState('userPosition')
     // Temporary style for better visualization
+
+    const [buttonText, setButtonText] = useState('Sair')
 
     useEffect(() => {
         if (userId) {
@@ -42,6 +45,32 @@ function UserOnQueue(props) {
     useEffect(() => {
         setUserQueuePosition(userInitialQueuePosition)
     }, [userInitialQueuePosition])
+
+    useEffect(() => {
+        if (userQueuePosition === 1) {
+            // Some warning to the user that is his turn
+            console.log("É sua vez!");
+        }
+    }, [userQueuePosition]);
+
+    function handleUserLeave() {
+        if (userQueuePosition > 1) {
+            leavePlatformQueue(
+
+                // Url
+                "https://www.fakeapi.online/api/apis/jaimemathias/api/usuario/queue-checkout",
+
+                // UserId Info
+                userId,
+
+                // Callback Function
+                () => {
+                    console.log("Sucesso ao sair da fila!");
+                } 
+
+            )
+        } 
+    }
     
     return (
         <div>
@@ -49,6 +78,11 @@ function UserOnQueue(props) {
             <UserPosition
                 userPosition={userQueuePosition}
                 classNames={classUserPositionNames}
+            />
+            <Button
+                buttonText={buttonText}
+                onButtonClick={handleUserLeave}
+                classNames={'leave-button'}
             />
         </div>
     )

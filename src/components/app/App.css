@@ -5,6 +5,10 @@
 }
 
 .userPosition {
-  float: left;
+  display: inline-block;
   margin-right: 0.5em;
+}
+
+.leave-button {
+  display: block;
 }
