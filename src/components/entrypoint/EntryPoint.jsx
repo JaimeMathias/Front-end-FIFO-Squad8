@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import SelectBox from "../selectbox/SelectBox";
-import { enterPlatformQueue, getPlatforms, getPlatformsQueueCount } from "./EntryPoint"
+import { enterPlatformQueue, getPlatforms, getPlatformsQueue } from "./EntryPoint"
 
 function EntryPoint(props) {
     
@@ -16,13 +16,17 @@ function EntryPoint(props) {
 
     const userNameInput = useRef()
 
+    // An array that keeps the queue count on each Platform
     const [platformsQueue, setPlatformsQueue] = useState('')
 
-    const [selectedPlatformQueueCount, setSelectedPlatformQueueCount] = useState(0)
+    // Mantains the selected platform queue count
+    const [selectedPlatformQueue, setSelectedPlatformQueue] = useState(0)
 
     const { onUserIdChange } = props
 
+
     /* Functions */
+    
     function handleSelectBoxChange(e) {
         setSelectedPlatform(platformsOptions.find(platform => platform.value === e.target.value))
     }
@@ -51,10 +55,19 @@ function EntryPoint(props) {
         )
     }
 
+
     /* Lifecycle Hooks */
+
     useEffect(() => {
-        const auxfuncGetPlatformQueueCount = () => {
-            getPlatformsQueueCount(
+        /*
+            Function that only runs when the component is mounted,
+            it gets the queue count on each Platform and sets an
+            interval of 5 minutes to update the queue's as well
+            the cleanup function to clear it.
+            It also gets the list of platforms
+        */
+        const auxfuncGetPlatformQueue = () => {
+            getPlatformsQueue(
 
                 // Http Request
                 'https://www.fakeapi.online/api/apis/jaimemathias/api/plataforma/queue-count',
@@ -67,9 +80,10 @@ function EntryPoint(props) {
             )
         }
 
-        auxfuncGetPlatformQueueCount()
-        const queueInterval = setInterval(auxfuncGetPlatformQueueCount, 10000) // 300000 ms = 5 minutes
+        auxfuncGetPlatformQueue()
+        const queueInterval = setInterval(auxfuncGetPlatformQueue, 300000) // 300000 ms = 5 minutes
 
+        /* Get the list of platforms */
         // Http Request
         getPlatforms('https://www.fakeapi.online/api/apis/jaimemathias/api/platform',
 
@@ -84,19 +98,22 @@ function EntryPoint(props) {
     }, []) // Only runs when the component is mounted
 
     useEffect(() => {
-        if (selectedPlatform) {     // Only works when the value changes from the initial value ('')
-            //console.log('Rendered: ', selectedPlatform.value);
+        if (selectedPlatform) {    // Prevent selectedPlatform being undefined
             if (platformsQueue) {
-                setSelectedPlatformQueueCount(platformsQueue.find(platform => platform.id === selectedPlatform.id).queueCount)
+                // Condition to prevent the possible conflict of either selectedPlatform or
+                // platformsQueue being still undefined
+                setSelectedPlatformQueue(platformsQueue.find(platform => platform.id === selectedPlatform.id).queueCount)
             }
         }
     }, [selectedPlatform, platformsQueue])
-    // try to fix this, if i put platformQueueCount in the array, it will update everytime the interval runs
+    // Little "bug": with platformQueueCount in the array, it will update everytime the interval runs
+    // but it only runs at 5 in 5 minutes, so it's just a little overhead
 
     useEffect(() => {
         if (platformsOptions[0].id !== 'unique') {  
-            // To prevent the selectedPlatform to be setted to "Select a platform" and cause errors on the other useEffect
-            // a solution could be make the platformOptions undefined and in the SelectBox put a propDefault
+            // Condition made to prevent the selectedPlatform to be setted to 
+            // "Select a platform" and cause errors on the other useEffect.
+            // A possible solution could be to make the platformOptions undefined and in the SelectBox put a propDefault
             setSelectedPlatform(platformsOptions[0])
         }
     }, [platformsOptions])
@@ -114,7 +131,7 @@ function EntryPoint(props) {
                     platformsOptions={platformsOptions}
                     onChange={handleSelectBoxChange}
                 />
-                <p>Fila {selectedPlatformQueueCount} pessoas</p>
+                <p>Fila {selectedPlatformQueue} pessoas</p>
                 <input type="submit" value="Entrar na fila"/>
             </form>
         </div>

@@ -59,8 +59,9 @@ function UserOnQueue(props) {
     useEffect(() => {
         /*
             When the user check-ins, then the if condition is true,
-            so it sets a interval of 1 minute to check if
-            the queuePosition of the user has changed
+            so it sets an interval of 1 minute to check if
+            the queuePosition of the user has changed, as
+            well the cleanup function to clear it
         */
         if (userId) {
             //console.log('userId changed: ', userId);

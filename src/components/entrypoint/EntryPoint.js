@@ -41,7 +41,7 @@ function enterPlatformQueue(url, user, callback) {
 
 }
 
-function getPlatformsQueueCount(url, callback) {
+function getPlatformsQueue(url, callback) {
     const request = new XMLHttpRequest()
 
     request.open('get', url)
@@ -72,4 +72,4 @@ function getPlatformsQueueCount(url, callback) {
     request.send()
 }
 
-export { getPlatforms, enterPlatformQueue, getPlatformsQueueCount }
+export { getPlatforms, enterPlatformQueue, getPlatformsQueue }

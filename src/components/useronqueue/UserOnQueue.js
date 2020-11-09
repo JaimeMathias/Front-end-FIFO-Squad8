@@ -26,11 +26,6 @@ export function leavePlatformQueue(url, userId, callback) {
 
     request.onload = () => {
         callback()
-        /*callback(
-            {
-                position: 5
-            }
-        )*/
     }
 
     request.send()
@@ -46,11 +41,6 @@ export function leavePlatformGame(url, userId, callback) {
 
     request.onload = () => {
         callback()
-        /*callback(
-            {
-                position: 5
-            }
-        )*/
     }
 
     request.send()
