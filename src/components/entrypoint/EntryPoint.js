@@ -4,7 +4,7 @@ function getPlatforms(url, callback) {
     request.open('get', url)
 
     request.onload = () => {
-        callback(JSON.parse(request.responseText).platformsOptions)
+        callback(JSON.parse(request.responseText))
         /*callback([
             {
                 id:0,

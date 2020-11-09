@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 function SelectBox(props) {
 
-    const { name, platformsOptions, onChange } = props
+    const { name, platformsArray, onChange } = props
 
     return (
         <div>
             <select name={name} onChange={onChange}>
-                {platformsOptions.map(platform => 
+                {platformsArray.map(platform => 
                     <option key={platform.id} value={platform.value}>{platform.value}</option>
                 )}
             </select>
@@ -19,7 +19,7 @@ function SelectBox(props) {
 SelectBox.propTypes = {
     name: PropTypes.string,
     onChange: PropTypes.func,
-    platformsOptions: PropTypes.arrayOf(
+    platformsArray: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.any.isRequired,
             value: PropTypes.any.isRequired

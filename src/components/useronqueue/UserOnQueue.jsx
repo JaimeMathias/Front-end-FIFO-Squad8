@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import UserPosition from '../userposition/UserPosition'
 import Button from '../button/Button'
@@ -14,6 +14,8 @@ function UserOnQueue(props) {
     // Temporary style for better visualization
 
     const [buttonText, setButtonText] = useState('Sair')
+
+    const intervalRef = useRef()
     
     /* Functions */
     function handleUserCheckout() {
@@ -35,6 +37,8 @@ function UserOnQueue(props) {
                 // Callback Function
                 () => {
                     console.log("Sucesso ao sair da fila!");
+                    setUserQueuePosition(0)
+                    clearInterval(intervalRef.current)
                 } 
             )
         } 
@@ -50,6 +54,8 @@ function UserOnQueue(props) {
                 // Callback Function
                 () => {
                     console.log("Sucesso ao sair do jogo!");
+                    setUserQueuePosition(0)
+                    clearInterval(intervalRef.current)
                 } 
             )
         }
@@ -65,7 +71,9 @@ function UserOnQueue(props) {
         */
         if (userId) {
             //console.log('userId changed: ', userId);
-            const auxfuncGetUserQueuePosition = () => {
+            const getPositionInterval = 
+            setInterval(() => {
+                // Http Request
                 getUserQueuePosition(
 
                     // Url
@@ -79,15 +87,13 @@ function UserOnQueue(props) {
                         //console.log(userPosition);
                         setUserQueuePosition(userPosition.position)
                     } 
-                )
-            }
 
-            var getPositionInterval = setInterval(auxfuncGetUserQueuePosition, 60000); // 60000 ms = 1 minute
+                )
+            }, 60000); // 60000 ms = 1 minute
+            intervalRef.current = getPositionInterval
         }
 
-        // generally the getPositionInterval should be in the local scope
-        // but as it's right now, doesnt need because this useEffect only updates 1 time
-        return () => clearInterval(getPositionInterval)
+        return () => clearInterval(intervalRef.current)
     }, [userId])
 
     useEffect(() => {
