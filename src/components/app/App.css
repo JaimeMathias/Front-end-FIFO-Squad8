@@ -1,24 +1,5 @@
 .App {
   display: grid;
-  grid-template-rows: 1;
+  grid-template-rows: auto;
   padding: 1em;
-}
-
-.user-position {
-  display: inline-block;
-  margin-right: 0.5em;
-}
-
-.leave-button {
-  display: block;
-}
-
-#entrypoint-component {
-  margin: 0 0 0.5em;
-  font-weight: bold;
-}
-
-#useronqueue-component {
-  margin: 3em 0 0;
-  font-weight: bold;
 }

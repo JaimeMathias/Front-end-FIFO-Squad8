@@ -6,7 +6,7 @@ function UserPosition(props) {
     const { userPosition, classNames } = props
 
     return (
-        <p className={classNames}>{userPosition}</p>
+        <span className={classNames}>{userPosition}</span>
     )
 }
 

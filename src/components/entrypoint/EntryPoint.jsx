@@ -128,6 +128,7 @@ function EntryPoint(props) {
 
     return (
         <div>
+            <p style={{margin: "0em 0 0.8em", fontWeight: "bold"}}>Entry-Point Component:</p>
             <form onSubmit={handleUserCheckin}>
                 <label name='userNameInput'>Nome</label>
                 <br/>

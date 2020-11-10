@@ -10,9 +10,6 @@ function UserOnQueue(props) {
     
     const [userQueuePosition, setUserQueuePosition] = useState(0)
 
-    const [classUserPositionNames] = useState('user-position')
-    // Temporary style for better visualization
-
     const [buttonText, setButtonText] = useState('Sair')
 
     const intervalRef = useRef()
@@ -114,19 +111,22 @@ function UserOnQueue(props) {
     
     return (
         <div>
-            <p className={classUserPositionNames}>Sua posição: </p>
+            <p style={{margin: "5em 0 0.8em", fontWeight: "bold"}}>User-On-Queue Component:</p>
+            <p>Sua posição:&nbsp; 
             <UserPosition
                 userPosition={userQueuePosition}
-                classNames={classUserPositionNames}
             />
+            </p>
             <Button
                 buttonText={buttonText}
                 onButtonClick={handleUserCheckout}
-                classNames={'leave-button'}
             />
         </div>
     )
 }
+// Is it worth to have a Button component, that is literal the same as the html tag?
+// For the User Position component, idk either, but its good to think in a scenario
+// of the Context API, but idk if it's worth either way
 
 UserOnQueue.propTypes = {
     userId: PropTypes.number,
