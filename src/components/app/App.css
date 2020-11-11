@@ -1,0 +1,5 @@
+.App {
+  display: grid;
+  grid-template-rows: auto;
+  padding: 1em;
+}
